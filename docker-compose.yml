@@ -1,0 +1,36 @@
+name: memberlist
+
+services:
+  node1:
+    image: node
+    expose:
+      - 8081
+      - 7946
+    command:
+      - "1"
+      - "8081"
+      - "node2:8082"
+
+  node2:
+    image: node
+    expose:
+      - "8082"
+      - "7946"
+    command:
+      - "2"
+      - "8082"
+      - "node1:8081"
+    depends_on:
+      - node1
+
+  node3:
+    image: node
+    expose:
+      - 8083
+      - 7946
+    command:
+      - "3"
+      - "8083"
+      - "node1:8081"
+    depends_on:
+      - node1
